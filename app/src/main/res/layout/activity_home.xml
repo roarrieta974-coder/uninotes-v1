@@ -37,17 +37,46 @@
         android:layout_marginTop="28dp"
         android:text="Mis cuadernos"
         android:textColor="@color/text_light"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/notebookCard"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📖"
+            android:textSize="42sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Mi primer cuaderno"
+            android:textColor="@color/text_light"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/emptyMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Todavía no tenés cuadernos"
+        android:gravity="center"
+        android:text="Tu espacio para escribir y estudiar"
         android:textColor="@color/text_light"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:alpha="0.7" />
 
     <Button
