@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,18 +9,26 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mis notas"
-        android:textSize="28sp"
+        android:text="UniNotes"
+        android:textSize="30sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Mis notas"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/noteInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="24dp"
-        android:hint="Escribí una nota..."
         android:gravity="top"
-        android:minLines="5" />
+        android:hint="Escribí una nueva nota..."
+        android:padding="16dp" />
 
     <Button
         android:id="@+id/saveButton"
