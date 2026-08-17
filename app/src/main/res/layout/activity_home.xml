@@ -4,86 +4,101 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_light"
-    android:padding="20dp">
+    android:background="#EDEDED">
+
+    <!-- Barra superior -->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:background="#FFFFFF">
 
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="Logo de UniNotes"
-            android:src="@drawable/uninotes_logo" />
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textSize="32sp"
+            android:textColor="#333333" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="12dp"
-            android:text="UniNotes"
-            android:textColor="@color/text_light"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="8dp"
+            android:text="Mi cuaderno"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:textColor="#222222" />
+
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:contentDescription="Logo de UniNotes"
+            android:src="@drawable/uninotes_logo" />
 
     </LinearLayout>
 
-    <TextView
+    <!-- Zona de la hoja -->
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Mis cuadernos"
-        android:textColor="@color/text_light"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="12dp">
+
+        <com.example.notas.DrawingView
+            android:id="@+id/drawingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/paper" />
+
+    </FrameLayout>
+
+    <!-- Barra de herramientas -->
 
     <LinearLayout
-        android:id="@+id/notebookCard"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_card"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:focusable="true">
+        android:background="#FFFFFF">
 
-        <TextView
+        <Button
+            android:id="@+id/undoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📖"
-            android:textSize="42sp" />
+            android:text="↩" />
 
-        <TextView
+        <Button
+            android:id="@+id/redoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Mi primer cuaderno"
-            android:textColor="@color/text_light"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="↪" />
+
+        <Button
+            android:id="@+id/penButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✏" />
+
+        <Button
+            android:id="@+id/eraserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🧽" />
+
+        <Button
+            android:id="@+id/colorButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="●" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/emptyMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Tu espacio para escribir y estudiar"
-        android:textColor="@color/text_light"
-        android:textSize="15sp"
-        android:alpha="0.7" />
-
-    <Button
-        android:id="@+id/newNotebookButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="+  Nuevo cuaderno" />
 
 </LinearLayout>
