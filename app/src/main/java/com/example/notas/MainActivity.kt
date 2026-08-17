@@ -1,48 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
+package com.example.notas
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp">
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.ComponentActivity
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="UniNotes"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+class MainActivity : ComponentActivity() {
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Mis notas"
-        android:textSize="18sp" />
+    private lateinit var noteStorage: NoteStorage
+    private lateinit var noteInput: EditText
 
-    <EditText
-        android:id="@+id/noteInput"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginTop="20dp"
-        android:gravity="top"
-        android:hint="Escribí una nueva nota..."
-        android:padding="16dp" />
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Guardar nota" />
+        noteStorage = NoteStorage(this)
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notesRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        tools:listitem="@layout/item_note" />
+        noteInput = findViewById(R.id.noteInput)
+        val saveButton = findViewById<Button>(R.id.saveButton)
 
-</LinearLayout>
+        saveButton.setOnClickListener {
+            saveNote()
+        }
+    }
+
+    private fun saveNote() {
+        val content = noteInput.text.toString().trim()
+
+        if (content.isEmpty()) {
+            Toast.makeText(
+                this,
+                "Escribí una nota primero",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val notes = noteStorage.getNotes()
+
+        val newNote = Note(
+            id = System.currentTimeMillis(),
+            title = "Nota ${notes.size + 1}",
+            content = content
+        )
+
+        notes.add(newNote)
+        noteStorage.saveNotes(notes)
+
+        noteInput.text.clear()
+
+        Toast.makeText(
+            this,
+            "Nota guardada",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+}
