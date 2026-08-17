@@ -5,11 +5,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var noteStorage: NoteStorage
     private lateinit var noteInput: EditText
+    private lateinit var noteAdapter: NoteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +21,14 @@ class MainActivity : ComponentActivity() {
         noteStorage = NoteStorage(this)
 
         noteInput = findViewById(R.id.noteInput)
+
         val saveButton = findViewById<Button>(R.id.saveButton)
+        val notesRecyclerView = findViewById<RecyclerView>(R.id.notesRecyclerView)
+
+        noteAdapter = NoteAdapter(noteStorage.getNotes())
+
+        notesRecyclerView.layoutManager = LinearLayoutManager(this)
+        notesRecyclerView.adapter = noteAdapter
 
         saveButton.setOnClickListener {
             saveNote()
@@ -45,8 +55,10 @@ class MainActivity : ComponentActivity() {
             content = content
         )
 
-        notes.add(newNote)
+        notes.add(0, newNote)
+
         noteStorage.saveNotes(notes)
+        noteAdapter.updateNotes(notes)
 
         noteInput.text.clear()
 
