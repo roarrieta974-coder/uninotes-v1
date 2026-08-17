@@ -8,32 +8,52 @@ import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
 
-    private val preferencesName = "notas_preferences"
-    private val noteKey = "nota_guardada"
+    private lateinit var noteStorage: NoteStorage
+    private lateinit var noteInput: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val noteInput = findViewById<EditText>(R.id.noteInput)
+        noteStorage = NoteStorage(this)
+
+        noteInput = findViewById(R.id.noteInput)
         val saveButton = findViewById<Button>(R.id.saveButton)
 
-        val preferences = getSharedPreferences(preferencesName, MODE_PRIVATE)
-
-        noteInput.setText(preferences.getString(noteKey, ""))
-
         saveButton.setOnClickListener {
-            val note = noteInput.text.toString().trim()
-
-            if (note.isNotEmpty()) {
-                preferences.edit()
-                    .putString(noteKey, note)
-                    .apply()
-
-                Toast.makeText(this, "Nota guardada", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Escribí una nota primero", Toast.LENGTH_SHORT).show()
-            }
+            saveNote()
         }
+    }
+
+    private fun saveNote() {
+        val content = noteInput.text.toString().trim()
+
+        if (content.isEmpty()) {
+            Toast.makeText(
+                this,
+                "Escribí una nota primero",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val notes = noteStorage.getNotes()
+
+        val newNote = Note(
+            id = System.currentTimeMillis(),
+            title = "Nota ${notes.size + 1}",
+            content = content
+        )
+
+        notes.add(newNote)
+        noteStorage.saveNotes(notes)
+
+        noteInput.text.clear()
+
+        Toast.makeText(
+            this,
+            "Nota guardada",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
